@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- TITLE -->
+    {% if request.GET.read %}
+        <div class="center text-center">
+            <h2>Read books</h2>
+        </div>
+    {% elif not request.GET.chapter %}
+        <div class="center text-center">
+            <h2>Search books</h2>
+        </div>
+    {% endif %}
+
+    <div class="row books">
+    <!-- LIST OF BOOKS -->
+        {% if not read_chapter %}
+            <div class="inner">
+                {% if request.GET.read %}
+                <!-- read books -->
+                <div class="column">
+                    {% for book, url in OLD_TESTAMENT.items %}
+                        <a href="{{ url }}{{ book }}&chapter=1" class="constant-color">{{ book }}</a>
+                    {% endfor %}
+                </div>
+                <div class="column">
+                    {% for book, url in NEW_TESTAMENT.items %}
+                        <a href="{{ url }}{{ book }}&chapter=1">{{ book }}</a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- search books -->
+                    <div class="column">
+                        {% for book, url in OLD_TESTAMENT.items %}
+                            <a href="{{ url }}{{ book }}">{{ book }}</a>
+                        {% endfor %}
+                    </div>
+                    <div class="column">
+                        {% for book, url in NEW_TESTAMENT.items %}
+                            <a href="{{ url }}{{ book }}">{{ book }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% elif read_chapter %}
+
+    <!-- READ CHAPTER -->
+        <div class="text-center">
+            <h1>{{book}} {{current_chapter}}</h1>
+        </div>
+        {% for book, verse in read_chapter %}
+            <p class="results">{{book|safe}}: {{verse|safe}}</p>
+        {% endfor %} 
+    </div>
+
+    <!-- PAGINATION -->
+        <div class="mg-left-vw-30">
+            <div class="pagination">
+                <!-- MORE THAN NINE CHAPTERS -->
+                {% if number_of_chapters > 9 %}
+                    <!-- link to first page -->
+                    {% if not elided_pagination.first_page %}
+                        <a href="?book={{book}}&chapter=1">First</a>
+                    {% endif %}
+                    {% for page in elided_pagination.numbers %}
+                    <!-- ellipsis -->
+                        {% if page == "..." %}
+                            <span>{{ page }}</span>
+                        {% else %}
+                                <!-- current page -->
+                            {% if page == current_chapter %}
+                                <a href="?book={{book}}&chapter={{page}}" class="active">{{ page }}</a>
+                                <!-- any other page -->
+                            {% else %}
+                                <a href="?book={{book}}&chapter={{page}}">{{ page }}</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <!-- link to last page -->
+                    {% if not elided_pagination.last_page %}
+                        <a href="?book={{book}}&chapter={{number_of_chapters}}">Last</a>
+                    {% endif %}
+                {% else %}
+                <!-- LESS THAN NINE CHAPTERS -->
+                    {% with ''|center:number_of_chapters as range %}
+                        {% for _ in range %}
+                            {% if chapter|add:"0" == forloop.counter %}
+                                <span class="active">&lt; Page {{ forloop.counter }} of {{number_of_chapters}} &gt;</span>
+                            {% else %}
+                                <a href="?book={{book}}&chapter={{forloop.counter}}">{{ forloop.counter }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

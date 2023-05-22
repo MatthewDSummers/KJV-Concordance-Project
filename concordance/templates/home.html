@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- FONT SIZE -->
+    <div style="float: right;">
+        <h2 class="font-assistant">SELECT FONT SIZE</h2>
+        <select id="font-selector" class="large-font">
+            <option selected disabled>Select an option</option>
+            <option class="change-font-size" value="normal-font">Normal</option>
+            <option class="change-font-size" value="large-font">Large</option>
+            <option class="change-font-size" value="larger-font">Larger</option>
+            <option class="change-font-size" value="largest-font">Largest</option>
+        </select>
+    </div>
+
+<!-- SEARCH FORM -->
+    <form action="/concordance/search" method="GET" class="search-form">
+        {% if request.GET.book %}
+            <label for="search-input">Search {{request.GET.book}}</label><br>
+            <input type="hidden" class="search-input" id="book-input" name="book" autocomplete="off" value="{{ request.GET.book }}">
+        {% else %}
+            <label for="search-input">Search a word or a phrase</label><br>
+        {% endif %}
+
+        <input type="text" class="search-input" id="search-input" name="term" autocomplete="off" required>
+        <br>
+        <input type="radio" id="radio-case-specific" class="radio" name="case_specific">
+        <label for="radio-case-specific">Exact match (also matches letter-case)</label>
+        <br>
+        <button type="submit" class="search-button">Search</button>
+    </form>
+    <br>
+    <br>
+    
+<!-- RESULTS-->
+    {% if term %}
+        <h3>
+            {% if case_specific %}
+                "{{term}}" 
+            {% else %}
+                "{{term.lower}}"
+            {% endif %}
+            appears in {{total_verse_occurrences}} verses and a total of {{total_occurrences}} times in the 
+            {% if book %}
+                book of {{book}}
+            {% else %}
+                Bible
+            {% endif %}
+        </h3>
+
+        {% for chapter, verse in results %}
+            <p class="results">{{chapter|safe}}: {{verse|safe}}</p>
+        {% endfor %}
+    {% endif %}
+
+
+<!-- PAGINATION -->
+    <div class="center">
+        <div class="pagination">
+            {% comment %} {% for page in results.paginator.page_range %} {% endcomment %}
+            {% for page in elided_page_numbers %}
+                {% if page == "..." %}
+                    <span>{{ page }}</span>
+                {% else %}
+                    {% if page == results.number %}
+                        <a href="{{pagination_anchor}}{{ page }}" class="active">{{ page }}</a>
+                    {% else %}
+                        <a href="{{pagination_anchor}}{{ page }}">{{ page }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <div style = "margin-inline: 35% auto; display: inline-block">
+                {% if results.has_previous %}
+                    <a href="{{pagination_anchor}}{{ results.previous_page_number }}" class="fw-700 previous">previous</a>
+                {% endif %}
+                {% if results.has_next %}
+                    <a href="{{pagination_anchor}}{{ results.next_page_number }}" class="fw-700 next">next</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

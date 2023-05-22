@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Untitled</title>
+        <meta name="description" content="This is an example of a meta description.">
+        <link rel="stylesheet" type="text/css" href="{% static 'concordance_static/css/style.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    </head>
+    <body>
+    <!-- HEADER -->
+        <section class="title-div text-center">
+            <h1 class="title font-playfair">An Exhaustive Concordance of <br>the Holy Bible (KJV)</h1>
+            <h4 class="font-assistant">2 Timothy 2:15</h4>
+            <h4 class="font-assistant">Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.</h4>
+        </section>
+    <!-- NAVIGATION MENU -->
+        <div id="navigation">
+            <a href="/concordance/">Search all books of the Bible</a>
+            <a href="/concordance/books">Search by book</a>
+            <a href="/concordance/books?read=by-book">Read</a>
+            <a href="/concordance/about">About</a>
+        </div>
+
+    <!-- INDIVIDUAL PAGE CONTENT  -->
+        <div id="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    <!-- SCRIPT -->
+        <script type="text/javascript" src="{% static 'concordance_static/js/index.js' %}"></script>
+    </body>
+</html>

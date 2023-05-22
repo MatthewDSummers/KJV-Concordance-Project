@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700;900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/**********************************
+    T A B L E    OF   C O N T E N T S
+
+        1. GENERAL
+            1.1 Elements
+            1.2 Margins
+
+        2. TYPOGRAPHY
+            2.1 Accessibility
+            2.2 Fonts
+            2.3 Font Stylings
+
+        3. COMPONENTS
+            3.1 General Components
+
+        4 BASE.HTML
+            4.1 Header
+
+        5. NAVIGATION
+
+        6. SEARCH PAGE
+            6.1 Form
+            6.2 Results
+
+        7. BOOKS PAGE
+            7.1 Anchor Elements
+
+        8. PAGINATION
+***********************************/
+
+/* ==== GENERAL ==== */
+
+/* 1.1 Elements  */
+body{
+    font-size: 1.25rem;
+}
+a{
+    color:rgb(0, 62, 219);
+}
+/* 1.2 Margins */
+.mg-left-vw-30{
+    margin-left: 22vw;
+}
+
+
+/* ==== TYPOGRAPHY ==== */
+
+/* 2.1 Accessibility  */
+#font-selector{
+    background-color: black;
+    min-width: 8.7em;
+    color: white;
+    text-align: center;
+}
+    .normal-font{
+        font-size: 1.25rem !important;
+    }
+    .large-font{
+        font-size: 1.75rem !important;
+    }
+    .larger-font{
+        font-size: 2.25rem !important;
+    }
+    .largest-font{
+        font-size: 2.75rem !important;
+    }
+
+/* 1.2 Fonts  */
+.font-playfair{
+    font-family: 'Playfair Display SC', serif;
+}
+.font-montserrat{
+    font-family: 'Montserrat', sans-serif;
+}
+.font-assistant{
+    font-family: 'Assistant', sans-serif;
+}
+
+/* 1.3 Font Stylings  */
+.text-center{
+    text-align: center;
+}
+.fw-700{
+    font-weight: 700 !important;
+}
+
+/* ==== COMPONENTS ==== */
+
+/* 3.1 General Components  */
+#container{
+    padding:1em 4em 4em 4em;
+    background-color: #F5F5F5;
+    color: #333333 !important;
+    min-height: 50vh;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+.inner{
+    margin-left: 20vw;
+    margin-top: 1em;
+}
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+/* IV.
+    ==== BASE.HTML ==== 
+*/
+
+/*  4.1 - Header  */
+
+.title-div{
+    padding: 4em;
+    background-image: url("/static/concordance_static/images/header.jpg");
+    /* background-size: 50%; */
+    /* height: 24em; */
+    background-position: center top 45%;
+    /* background-repeat: no-repeat; */
+}
+.title{
+    letter-spacing: .2rem;
+    font-size: 3.5rem;
+    text-shadow: 1px 1px 2px rgb(189, 197, 228);
+    color: rgb(0, 62, 219);
+}
+.title-div h4{
+    font-family: 'Assistant', sans-serif;
+    color: rgb(46, 46, 46);
+    text-shadow: 1px 1px 2px rgb(161, 161, 161);
+}
+    .title-div h4:first-of-type{
+        margin-top: 1em;
+        font-size: 1.7rem;
+    }
+    .title-div h4:not(h4:first-of-type){
+        font-size: 2rem;
+        font-style: italic;
+    }
+
+/* V.
+    ==== NAVIGATION ====
+*/
+#navigation{
+    color: blue;
+    background-color: rgb(62, 62, 62);
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#navigation a{
+    color: yellow;
+    text-decoration: none;
+    margin-inline: 3em;
+}
+
+/* VI.
+    ==== SEARCH PAGE ==== 
+*/
+
+/* 6.1 - Form  */
+.search-form *{
+    margin-block: 10px;
+}
+    .search-form label[for="search-input"]{
+        font-size: 2.5rem;
+    }
+    .search-input{
+        outline: none;
+        border-radius: 9px;
+        padding: .25em;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-align: center;
+        width: 20%;
+    }
+    #radio-case-specific{
+        accent-color: red;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    .search-button{
+        border-radius: 9px;
+        padding: 8px 20px;
+        font-size: 2rem;
+        background-color: hsl(48, 100%, 76%);
+        width: 20%;
+    }
+
+/* 6.2 - Results  */
+.chapter-verse{
+    font-weight: 700;
+}
+.results{
+    margin-block: 1em;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+}
+
+
+/* VII.
+    ==== BOOKS PAGE ==== 
+*/
+
+/* 7.1 - Anchor elements for Book List  */
+.books a{
+    display: block;
+    text-decoration: none;
+    margin: 0 0 9px 0;
+}
+
+
+/* VIII.
+    ==== PAGINATION ====
+*/
+.pagination{
+    display: inline-block;
+    margin-inline: 10% 10%;
+    padding-block: 2.1em;
+}
+    .pagination a{
+        margin-inline: .4em;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 300;
+        color:rgb(0, 62, 219);
+    }
+        .pagination a:hover{
+            color: black;
+            font-weight: 600;
+        }
+
+        .pagination .active{
+            color: black;
+            font-weight: 700;
+        }
+        .next, .previous{
+            color: black !important;
+        }
