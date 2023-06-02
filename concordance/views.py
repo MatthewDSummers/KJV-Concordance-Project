@@ -14,23 +14,30 @@ from django.core.paginator import Paginator
 
 # ABOUT PAGE 
 def about(request):
-    # I had to rewrite the file to have books as keys 
-    # script_dir = os.path.dirname(__file__)
-    # file_path = os.path.join(script_dir, 'KJV.json')
+    # I had to rewrite the file to have books as keys and to have the digits of the chapters and verses in each entry
 
+    # script_dir = os.path.dirname(__file__)
+    # file_path = os.path.join(script_dir, 'KJV-old-backup2.json')
 
     # with open(file_path, 'r') as file:
     #     data = json.load(file)
 
     # books = {}
     # for entry in data:
-    #     book_name = entry['name'].split()[0]
-    #     if book_name not in books:
-    #         books[book_name] = []
-    #     books[book_name].append(entry)
+    #     name_match = re.match(r'^([\w\s]+)\s(\d+:\d+)', entry['name'])
+    #     if name_match:
+    #         book_name = name_match.group(1)
+    #         chapter_and_verse_numbers = name_match.group(2)
+
+    #         if book_name not in books:
+    #             books[book_name] = []
+
+    #         entry['chapter_and_verse'] = chapter_and_verse_numbers
+    #         books[book_name].append(entry)
 
     # with open(file_path, 'w') as file:
     #     json.dump(books, file, indent=4)
+
     return render(request, 'about.html')
 
 
@@ -131,17 +138,17 @@ def by_book(request):
     url = base_url + appended
     OLD_TESTAMENT_URLs = {
         "Genesis": url, "Exodus": url, "Leviticus": url, "Numbers": url, "Deuteronomy": url, "Joshua": url, "Judges": url,
-        "Ruth": url, "1 Samuel": url, "2 Samuel": url, "1 Kings": url, "2 Kings": url, "1 Chronicles": url, "2 Chronicles": url,
+        "Ruth": url, "First Samuel": url, "Second Samuel": url, "First Kings": url, "Second Kings": url, "First Chronicles": url, "Second Chronicles": url,
         "Ezra": url, "Nehemiah": url, "Esther": url, "Job": url, "Psalms": url, "Proverbs": url, "Ecclesiastes": url,
         "Song of Solomon": url, "Isaiah": url, "Jeremiah": url, "Lamentations": url, "Ezekiel": url, "Daniel": url, "Hosea": url,
         "Joel": url, "Amos": url, "Obadiah": url, "Jonah": url, "Micah": url, "Nahum": url, "Habakkuk": url,
         "Zephaniah": url, "Haggai": url, "Zechariah": url, "Malachi": url,
     }
     NEW_TESTAMENT_URLs = {
-        "Matthew": url, "Mark": url, "Luke": url, "John": url, "Acts": url, "Romans": url, "1 Corinthians": url,
-        "2 Corinthians": url, "Galatians": url, "Ephesians": url, "Philippians": url, "Colossians": url, "1 Thessalonians": url, "2 Thessalonians": url,
-        "1 Timothy": url, "2 Timothy": url, "Titus": url, "Philemon": url, "Hebrews": url, "James": url, "1 Peter": url,
-        "2 Peter": url, "1 John": url, "2 John": url, "3 John": url, "Jude": url, "Revelation": url
+        "Matthew": url, "Mark": url, "Luke": url, "John": url, "Acts": url, "Romans": url, "First Corinthians": url,
+        "Second Corinthians": url, "Galatians": url, "Ephesians": url, "Philippians": url, "Colossians": url, "First Thessalonians": url, "Second Thessalonians": url,
+        "First Timothy": url, "Second Timothy": url, "Titus": url, "Philemon": url, "Hebrews": url, "James": url, "First Peter": url,
+        "Second Peter": url, "First John": url, "Second John": url, "Third John": url, "Jude": url, "Revelation": url
     }
 
     context = {
@@ -154,15 +161,15 @@ def by_book(request):
 #  READ CHAPTER 
 def read(request):
     BIBLE_CHAPTERS = {
-        "Genesis": 50, "Exodus": 40, "Leviticus": 27, "Numbers": 36, "Deuteronomy": 34, "Joshua": 24, "Judges": 21, "Ruth": 4, "1 Samuel": 31,
-        "2 Samuel": 24, "1 Kings": 22, "2 Kings": 25, "1 Chronicles": 29, "2 Chronicles": 36, "Ezra": 10, "Nehemiah": 13, "Esther": 10, "Job": 42, 
+        "Genesis": 50, "Exodus": 40, "Leviticus": 27, "Numbers": 36, "Deuteronomy": 34, "Joshua": 24, "Judges": 21, "Ruth": 4, "First Samuel": 31,
+        "Second Samuel": 24, "First Kings": 22, "Second Kings": 25, "First Chronicles": 29, "Second Chronicles": 36, "Ezra": 10, "Nehemiah": 13, "Esther": 10, "Job": 42, 
         "Psalms": 150, "Proverbs": 31, "Ecclesiastes": 12, "Song of Solomon": 8, "Isaiah": 66, "Jeremiah": 52, "Lamentations": 5, "Ezekiel": 48, "Daniel": 12,
         "Hosea": 14, "Joel": 3, "Amos": 9, "Obadiah": 1, "Jonah": 4, "Micah": 7, "Nahum": 3, "Habakkuk": 3, "Zephaniah": 3,
         "Haggai": 2, "Zechariah": 14, "Malachi": 4,
         
-        "Matthew": 28, "Mark": 16, "Luke": 24, "John": 21, "Acts": 28, "Romans": 16, "1 Corinthians": 16, "2 Corinthians": 13, "Galatians": 6,
-        "Ephesians": 6, "Philippians": 4, "Colossians": 4, "1 Thessalonians": 5, "2 Thessalonians": 3, "1 Timothy": 6, "2 Timothy": 4, "Titus": 3, "Philemon": 1,
-        "Hebrews": 13, "James": 5, "1 Peter": 5, "2 Peter": 3, "1 John": 5, "2 John": 1, "3 John": 1, "Jude": 1, "Revelation": 22
+        "Matthew": 28, "Mark": 16, "Luke": 24, "John": 21, "Acts": 28, "Romans": 16, "First Corinthians": 16, "Second Corinthians": 13, "Galatians": 6,
+        "Ephesians": 6, "Philippians": 4, "Colossians": 4, "First Thessalonians": 5, "Second Thessalonians": 3, "First Timothy": 6, "Second Timothy": 4, "Titus": 3, "Philemon": 1,
+        "Hebrews": 13, "James": 5, "First Peter": 5, "Second Peter": 3, "First John": 5, "Second John": 1, "Third John": 1, "Jude": 1, "Revelation": 22
     }
 
     try:
@@ -183,14 +190,17 @@ def read(request):
             data = json.load(f)
 
             try:
+                print (book, "the books")
                 book_entries = data[book]
             except KeyError:
+                print("derp")
                 return render(request, "error.html", status=400)
             else:
                 for entry in book_entries:
-                    chapter_number = int(entry['name'].split(':')[0].split(' ')[-1])
+                    # chapter_number = int(entry['name'].split(':')[0].split(' ')[-1])
+                    chapter_number = int(entry['chapter_and_verse'].split(':')[0])
                     if chapter_number == chapter:
-                        results.append((f"<span class='chapter-verse'>{entry[u'name']}</span>", entry[u'verse']))
+                        results.append((f"<span class='chapter-verse'>{entry[u'chapter_and_verse']}</span>", entry[u'verse']))
 
                 number_of_chapters = BIBLE_CHAPTERS.get(book)
 
